@@ -82,11 +82,10 @@ class ALEInterpreterImplementationCompiler extends AbstractALECompiler {
 						val rc = resolved.filter [
 							it.eCls.name == eclazz.name && it.eCls.EPackage.name == eclazz.EPackage.name
 						].head
-						if(eclazz.instanceClassName != "java.util.Map$Entry" && ! dsl.isTruffle)
+						if(eclazz.instanceClassName != "java.util.Map$Entry" /* && ! dsl.isTruffle*/)
 							eic.compileEClassInterface(eclazz, rc?.aleCls, compileDirectory, dsl, packageRoot)
 						eimplc.compileEClassImplementation(eclazz, rc?.aleCls, compileDirectory, syntaxes, resolved,
 							srm.registeredServices, dsl, base, tsu, namingUtils)
-
 					} catch (Exception e) {
 						e.printStackTrace
 					}
