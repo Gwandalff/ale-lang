@@ -225,7 +225,7 @@ public class ProgramImpl extends MinimalTruffleEObjectImpl.TruffleContainer impl
 		Method result;
 		if (this.classesArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.classes != null) this.classesArr = this.classes.toArray(new TypeDeclaration[0]);
+			if (this.getClasses() != null) this.classesArr = this.getClasses().toArray(new TypeDeclaration[0]);
 			else this.classesArr = new TypeDeclaration[] {};
 		}
 		result = (Method) (null) ;

@@ -160,7 +160,7 @@ public class NewObjectImpl extends ExpressionImpl implements NewObject {
 		Value result;
 		if (this.argsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.args != null) this.argsArr = this.args.toArray(new Expression[0]);
+			if (this.getArgs() != null) this.argsArr = this.getArgs().toArray(new Expression[0]);
 			else this.argsArr = new Expression[] {};
 		}
 		ObjectInstance res = ((ObjectInstance) (MiniJavaFactory.eINSTANCE.createObjectInstance()));

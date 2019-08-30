@@ -40,7 +40,7 @@ public class TrufflebenchLanguage extends TruffleLanguage<Ctx> {
     protected CallTarget parse(ParsingRequest request) throws Exception {
         final String program = IOUtils.toString(request.getSource().getInputStream(), Charset.defaultCharset());
 
-        EPackage.Registry.INSTANCE.put("http://www.gemoc.org/fsm", FsmPackage.eINSTANCE);
+        EPackage.Registry.INSTANCE.put("http://www.example.org/fsm", FsmPackage.eINSTANCE);
 
         LogService.MUTE = true;
 
@@ -57,7 +57,7 @@ public class TrufflebenchLanguage extends TruffleLanguage<Ctx> {
             @Override
             public Object execute(VirtualFrame frame) {
                 // TODO: check DCE.
-                fsmProgram.main(30);
+                fsmProgram.main(50000000);
                 return 42;
             }
         };

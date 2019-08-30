@@ -9,6 +9,7 @@ import com.oracle.truffle.api.library.ExportLibrary;
 import com.oracle.truffle.api.library.ExportMessage;
 import com.oracle.truffle.api.nodes.RootNode;
 import miniJava.interpreter.miniJava.MiniJavaPackage;
+import miniJava.interpreter.miniJava.State;
 import miniJava.interpreter.miniJava.impl.ProgramImpl;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.emf.common.util.BasicEList;
@@ -39,7 +40,7 @@ public class TrufflebenchLanguage extends TruffleLanguage<Ctx> {
     @Override
     protected CallTarget parse(ParsingRequest request) throws Exception {
         final String program = IOUtils.toString(request.getSource().getInputStream(), Charset.defaultCharset());
-        EPackage.Registry.INSTANCE.put("http://kmLogo", MiniJavaPackage.eINSTANCE);
+        EPackage.Registry.INSTANCE.put("http://miniJava.miniJava.miniJava", MiniJavaPackage.eINSTANCE);
         final Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
         final Map<String, Object> m = reg.getExtensionToFactoryMap();
         m.put("xmi", new XMIResourceFactoryImpl());
@@ -50,12 +51,13 @@ public class TrufflebenchLanguage extends TruffleLanguage<Ctx> {
         final URI createFileURI = URI.createFileURI(program);
         final Resource resource = resSet.getResource(createFileURI, true);
         ProgramImpl minijavaProgram = (ProgramImpl) resource.getContents().get(0);
-        minijavaProgram.initialize(new BasicEList());
+        minijavaProgram.initialize(new BasicEList<>());
         final RootNode main = new RootNode(this) {
             @Override
             public Object execute(VirtualFrame frame) {
                 // TODO: check DCE.
-                return minijavaProgram.execute();
+                State execute = minijavaProgram.execute();
+				return execute.getArraysHeap().size();
             }
         };
         this.getContextReference().get().setMain(main);

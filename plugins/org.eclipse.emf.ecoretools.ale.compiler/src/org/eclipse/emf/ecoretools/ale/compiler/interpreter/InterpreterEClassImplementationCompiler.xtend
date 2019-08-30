@@ -407,6 +407,7 @@ class InterpreterEClassImplementationCompiler {
 				val rt = ref.head.EType.resolveType
 				hm.put('arrType' + array.value, rt)
 				hm.put('arrName' + array.value, array.key)
+				hm.put('arrGet' + array.value, '''get«array.key.toFirstUpper»()''')
 			}
 			hm.put("cd", ClassName.get("com.oracle.truffle.api", "CompilerDirectives"))
 
@@ -414,7 +415,7 @@ class InterpreterEClassImplementationCompiler {
 			«FOR array: registreredArrays.enumerate»
 			if (this.$arrName«array.value»:LArr == null) {
 				$cd:T.transferToInterpreterAndInvalidate();
-				if (this.$arrName«array.value»:L != null) this.$arrName«array.value»:LArr = this.$arrName«array.value»:L.toArray(new $arrType«array.value»:T[0]);
+				if (this.$arrGet«array.value»:L != null) this.$arrName«array.value»:LArr = this.$arrGet«array.value»:L.toArray(new $arrType«array.value»:T[0]);
 				else this.$arrName«array.value»:LArr = new $arrType«array.value»:T[] {};
 			}
 			«ENDFOR»

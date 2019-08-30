@@ -105,7 +105,7 @@ public class BlockImpl extends StatementImpl implements Block {
 	public void evaluateStatementKeepContext(State state) {
 		if (this.statementsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.statements != null) this.statementsArr = this.statements.toArray(new Statement[0]);
+			if (this.getStatements() != null) this.statementsArr = this.getStatements().toArray(new Statement[0]);
 			else this.statementsArr = new Statement[] {};
 		}
 		((State) (state)).pushNewContext();
@@ -122,7 +122,7 @@ public class BlockImpl extends StatementImpl implements Block {
 	public void evaluateStatement(State state) {
 		if (this.statementsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.statements != null) this.statementsArr = this.statements.toArray(new Statement[0]);
+			if (this.getStatements() != null) this.statementsArr = this.getStatements().toArray(new Statement[0]);
 			else this.statementsArr = new Statement[] {};
 		}
 		((Block) (this)).evaluateStatementKeepContext((State) (state));

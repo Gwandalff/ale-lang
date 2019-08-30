@@ -205,7 +205,7 @@ public class MethodCallImpl extends ExpressionImpl implements MethodCall {
 		Value result;
 		if (this.argsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.args != null) this.argsArr = this.args.toArray(new Expression[0]);
+			if (this.getArgs() != null) this.argsArr = this.getArgs().toArray(new Expression[0]);
 			else this.argsArr = new Expression[] {};
 		}
 		ObjectRefValue realReceiver0 = ((ObjectRefValue) (((ObjectRefValue) (((Expression) (this.getReceiver())).evaluateExpression((State) (state))))));
@@ -237,7 +237,7 @@ public class MethodCallImpl extends ExpressionImpl implements MethodCall {
 	public void call(Method realMethod, State state) {
 		if (this.argsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.args != null) this.argsArr = this.args.toArray(new Expression[0]);
+			if (this.getArgs() != null) this.argsArr = this.getArgs().toArray(new Expression[0]);
 			else this.argsArr = new Expression[] {};
 		}
 		((Method) (realMethod)).call((State) (state));

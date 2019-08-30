@@ -45,11 +45,11 @@ public class MyBenchmark {
     private Value mainMeth;
 
     @Param({""})
-    public String programPath;
+    public String program;
 
     @Setup(Level.Iteration)
     public void loadProgram() throws IOException {
-        String src = programPath;
+        String src = program;
         Source source = Source.newBuilder("trufflebench", src, "eval").build();
         Context context = Context.newBuilder().build();
         context.eval(source);
@@ -58,6 +58,10 @@ public class MyBenchmark {
     }
 
     @Benchmark
+	@BenchmarkMode(Mode.SingleShotTime)
+	@Measurement(iterations = 1, time = 1)
+	@Fork(value = 1)
+	@Warmup(iterations = 1)
     public Value testMethod() {
         // This is a demo/sample template for building your JMH benchmarks. Edit as needed.
         // Put your benchmark code here.

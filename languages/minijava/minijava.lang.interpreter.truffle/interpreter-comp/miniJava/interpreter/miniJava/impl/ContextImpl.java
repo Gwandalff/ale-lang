@@ -248,7 +248,7 @@ public class ContextImpl extends MinimalEObjectImpl.Container implements Context
 		SymbolBinding result;
 		if (this.bindingsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.bindings != null) this.bindingsArr = this.bindings.toArray(new SymbolBinding[0]);
+			if (this.getBindings() != null) this.bindingsArr = this.getBindings().toArray(new SymbolBinding[0]);
 			else this.bindingsArr = new SymbolBinding[] {};
 		}
 		if (!(MapService.containsKey((EMap) (this.getCache()), (Symbol) (symbol)))) {
@@ -276,7 +276,7 @@ public class ContextImpl extends MinimalEObjectImpl.Container implements Context
 		Context result;
 		if (this.bindingsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.bindings != null) this.bindingsArr = this.bindings.toArray(new SymbolBinding[0]);
+			if (this.getBindings() != null) this.bindingsArr = this.getBindings().toArray(new SymbolBinding[0]);
 			else this.bindingsArr = new SymbolBinding[] {};
 		}
 		if (!EqualService.equals((this.getChildContext()), (null))) {

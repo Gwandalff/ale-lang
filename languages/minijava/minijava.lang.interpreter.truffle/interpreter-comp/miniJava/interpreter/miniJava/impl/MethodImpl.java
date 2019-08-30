@@ -247,7 +247,7 @@ public class MethodImpl extends MemberImpl implements Method {
 		Method result;
 		if (this.paramsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.params != null) this.paramsArr = this.params.toArray(new Parameter[0]);
+			if (this.getParams() != null) this.paramsArr = this.getParams().toArray(new Parameter[0]);
 			else this.paramsArr = new Parameter[] {};
 		}
 		if (!(MapService.containsKey((EMap) (this.getCache()), (Clazz) (c)))) {
@@ -304,7 +304,7 @@ public class MethodImpl extends MemberImpl implements Method {
 	public void call(State state) {
 		if (this.paramsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.params != null) this.paramsArr = this.params.toArray(new Parameter[0]);
+			if (this.getParams() != null) this.paramsArr = this.getParams().toArray(new Parameter[0]);
 			else this.paramsArr = new Parameter[] {};
 		}
 		((Block) (this.getBody())).evaluateStatement((State) (state));
