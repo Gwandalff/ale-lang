@@ -228,7 +228,7 @@ public class StateImpl extends MinimalTruffleEObjectImpl.TruffleContainer implem
 	public void step(String inputString) {
 		if (this.outgoingArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.outgoing != null) this.outgoingArr = this.outgoing.toArray(new Transition[0]);
+			if (this.getOutgoing() != null) this.outgoingArr = this.getOutgoing().toArray(new Transition[0]);
 			else this.outgoingArr = new Transition[] {};
 		}
 		Transition validTransition = ((Transition) (CollectionService.head(CollectionService.select(this.outgoingArr, (t) -> EqualService.equals((inputString), (t.getTrigger()))))));

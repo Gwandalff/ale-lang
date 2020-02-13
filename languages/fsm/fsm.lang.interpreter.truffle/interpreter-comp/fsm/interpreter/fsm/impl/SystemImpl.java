@@ -129,12 +129,12 @@ public class SystemImpl extends MinimalTruffleEObjectImpl.TruffleContainer imple
 	public void intialize() {
 		if (this.ownedBuffersArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.ownedBuffers != null) this.ownedBuffersArr = this.ownedBuffers.toArray(new Buffer[0]);
+			if (this.getOwnedBuffers() != null) this.ownedBuffersArr = this.getOwnedBuffers().toArray(new Buffer[0]);
 			else this.ownedBuffersArr = new Buffer[] {};
 		}
 		if (this.ownedFsmsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.ownedFsms != null) this.ownedFsmsArr = this.ownedFsms.toArray(new FSM[0]);
+			if (this.getOwnedFsms() != null) this.ownedFsmsArr = this.getOwnedFsms().toArray(new FSM[0]);
 			else this.ownedFsmsArr = new FSM[] {};
 		}
 		for (FSM fsm : this.ownedFsmsArr) {
@@ -149,12 +149,12 @@ public class SystemImpl extends MinimalTruffleEObjectImpl.TruffleContainer imple
 	public void main(int limit) {
 		if (this.ownedBuffersArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.ownedBuffers != null) this.ownedBuffersArr = this.ownedBuffers.toArray(new Buffer[0]);
+			if (this.getOwnedBuffers() != null) this.ownedBuffersArr = this.getOwnedBuffers().toArray(new Buffer[0]);
 			else this.ownedBuffersArr = new Buffer[] {};
 		}
 		if (this.ownedFsmsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.ownedFsms != null) this.ownedFsmsArr = this.ownedFsms.toArray(new FSM[0]);
+			if (this.getOwnedFsms() != null) this.ownedFsmsArr = this.getOwnedFsms().toArray(new FSM[0]);
 			else this.ownedFsmsArr = new FSM[] {};
 		}
 		((System) (this)).intialize();

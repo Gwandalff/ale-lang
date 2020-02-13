@@ -103,7 +103,7 @@ public class BlockImpl extends InstructionImpl implements Block {
 		double result;
 		if (this.instructionsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.instructions != null) this.instructionsArr = this.instructions.toArray(new Instruction[0]);
+			if (this.getInstructions() != null) this.instructionsArr = this.getInstructions().toArray(new Instruction[0]);
 			else this.instructionsArr = new Instruction[] {};
 		}
 		for (Instruction inst : this.instructionsArr) {

@@ -105,7 +105,7 @@ public class LogoProgramImpl extends MinimalTruffleEObjectImpl.TruffleContainer 
 		Turtle result;
 		if (this.instructionsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.instructions != null) this.instructionsArr = this.instructions.toArray(new Instruction[0]);
+			if (this.getInstructions() != null) this.instructionsArr = this.getInstructions().toArray(new Instruction[0]);
 			else this.instructionsArr = new Instruction[] {};
 		}
 		Turtle turtle = ((Turtle) (((LogoProgram) (this)).createTurtle()));
@@ -122,7 +122,7 @@ public class LogoProgramImpl extends MinimalTruffleEObjectImpl.TruffleContainer 
 		Turtle result;
 		if (this.instructionsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.instructions != null) this.instructionsArr = this.instructions.toArray(new Instruction[0]);
+			if (this.getInstructions() != null) this.instructionsArr = this.getInstructions().toArray(new Instruction[0]);
 			else this.instructionsArr = new Instruction[] {};
 		}
 		Turtle turtle = ((Turtle) (KmLogoFactory.eINSTANCE.createTurtle()));

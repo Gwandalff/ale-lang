@@ -110,7 +110,7 @@ public class BObjectImpl extends ExprImpl implements BObject {
 		EvalRes result;
 		if (this.fieldsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.fields != null) this.fieldsArr = this.fields.toArray(new Field[0]);
+			if (this.getFields() != null) this.fieldsArr = this.getFields().toArray(new Field[0]);
 			else this.fieldsArr = new Field[] {};
 		}
 		EvalMapRes ret = ((EvalMapRes) (BoaFactory.eINSTANCE.createEvalMapRes()));

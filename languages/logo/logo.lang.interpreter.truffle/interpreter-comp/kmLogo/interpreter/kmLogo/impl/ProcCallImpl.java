@@ -187,7 +187,7 @@ public class ProcCallImpl extends ExpressionImpl implements ProcCall {
 		double result;
 		if (this.actualArgsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.actualArgs != null) this.actualArgsArr = this.actualArgs.toArray(new Expression[0]);
+			if (this.getActualArgs() != null) this.actualArgsArr = this.getActualArgs().toArray(new Expression[0]);
 			else this.actualArgsArr = new Expression[] {};
 		}
 		LogService.log(("Calling ") + (this.getDeclaration().getName()));

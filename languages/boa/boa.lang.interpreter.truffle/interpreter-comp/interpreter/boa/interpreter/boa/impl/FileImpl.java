@@ -104,7 +104,7 @@ public class FileImpl extends MinimalTruffleEObjectImpl.TruffleContainer impleme
 	public void eval() {
 		if (this.commandsArr == null) {
 			CompilerDirectives.transferToInterpreterAndInvalidate();
-			if (this.commands != null) this.commandsArr = this.commands.toArray(new TopLevelCmd[0]);
+			if (this.getCommands() != null) this.commandsArr = this.getCommands().toArray(new TopLevelCmd[0]);
 			else this.commandsArr = new TopLevelCmd[] {};
 		}
 		Ctx ctx = ((Ctx) (BoaFactory.eINSTANCE.createCtx()));
