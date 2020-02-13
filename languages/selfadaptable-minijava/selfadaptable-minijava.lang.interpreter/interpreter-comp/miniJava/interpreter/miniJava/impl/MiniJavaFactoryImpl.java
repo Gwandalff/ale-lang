@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import miniJava.interpreter.IDynamicModule;
 import miniJava.interpreter.dynamicModules.DynamicApproximateModule;
 import miniJava.interpreter.dynamicModules.DynamicMemoizationModule;
+import miniJava.interpreter.dynamicModules.DynamicPEModule;
 import miniJava.interpreter.miniJava.AccessLevel;
 import miniJava.interpreter.miniJava.And;
 import miniJava.interpreter.miniJava.ArrayAccess;
@@ -834,5 +835,6 @@ public class MiniJavaFactoryImpl extends EFactoryImpl implements MiniJavaFactory
 	private static void instaciateDynamicModules() {
 		modules.add(new DynamicApproximateModule());
 		modules.add(new DynamicMemoizationModule());
+		modules.add(new DynamicPEModule());
 	}
 }

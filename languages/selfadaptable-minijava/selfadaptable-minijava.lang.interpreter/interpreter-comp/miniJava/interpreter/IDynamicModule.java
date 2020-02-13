@@ -2,6 +2,11 @@ package miniJava.interpreter;
 
 import miniJava.interpreter.miniJava.Value;
 
+/**
+ * IDynamicModule : Interface that define a dynamic module for the Dynamic Adaptive Pattern
+ * @author gjouneau
+ *
+ */
 public interface IDynamicModule {
 	
 	public enum Strategy{
