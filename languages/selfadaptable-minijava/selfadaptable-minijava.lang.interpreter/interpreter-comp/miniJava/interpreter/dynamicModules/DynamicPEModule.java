@@ -9,9 +9,12 @@ import org.eclipse.emf.ecore.EObject;
 import miniJava.interpreter.IDynamicModule;
 import miniJava.interpreter.IDynamicSubject;
 import miniJava.interpreter.miniJava.Block;
+import miniJava.interpreter.miniJava.Expression;
 import miniJava.interpreter.miniJava.Method;
 import miniJava.interpreter.miniJava.MethodCall;
 import miniJava.interpreter.miniJava.MiniJavaPackage;
+import miniJava.interpreter.miniJava.PrintStatement;
+import miniJava.interpreter.miniJava.StringConstant;
 import miniJava.interpreter.miniJava.Value;
 
 public class DynamicPEModule implements IDynamicModule {
@@ -21,6 +24,7 @@ public class DynamicPEModule implements IDynamicModule {
 
 	@Override
 	public boolean updateBefore(IDynamicSubject self) {
+		if(self instanceof PrintStatement) return false;
 		if(self instanceof Block) {
 			EObject container = ((Block) self).eContainer();
 			if(container instanceof Method) {
@@ -46,13 +50,11 @@ public class DynamicPEModule implements IDynamicModule {
 	}
 
 	@Override
-	public boolean updateAfter(IDynamicSubject self, Value returned) {
-		if(self instanceof MethodCall) return false;
-		
+	public boolean updateAfter(IDynamicSubject self, Value returned) {		
 		try {
-			EObject container = ((Block) self).eContainer();
-			Method method = (Method) container;
-			if(method.getName().equals("main")) {
+			Expression exp = ((PrintStatement) self).getExpression();
+			String print = ((StringConstant) exp).getValue();
+			if(print.equals(":statistique")) {
 				Set<String> keys = callTable.keySet();
 				System.out.println("Overview of method calls :\n");
 				for (String m : keys) {
@@ -80,7 +82,7 @@ public class DynamicPEModule implements IDynamicModule {
 
 	@Override
 	public int[] targetedNodes() {
-		int[] out = {MiniJavaPackage.METHOD_CALL, MiniJavaPackage.BLOCK};
+		int[] out = {MiniJavaPackage.METHOD_CALL, MiniJavaPackage.BLOCK, MiniJavaPackage.PRINT_STATEMENT};
 		return out;
 	}
 	

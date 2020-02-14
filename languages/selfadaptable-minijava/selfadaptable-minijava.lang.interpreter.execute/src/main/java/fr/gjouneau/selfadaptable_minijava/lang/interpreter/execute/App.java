@@ -21,7 +21,7 @@ public class App
 	
     public static void main( String[] args )
     {
-    	program = "/home/ALE/ale-lang/programs/dynamic.xmi";
+    	program = "../../programs/dynamic.xmi";
     	loadXMI();
     	minijavaProgram.execute();
     }

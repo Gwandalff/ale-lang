@@ -16,14 +16,14 @@
 	<modules>
 		<module>selfadaptable-minijava.model</module>
 		<module>selfadaptable-minijava.lang.services</module>
-		<module>selfadaptable-minijava.lang.visitor</module>
-		<module>selfadaptable-minijava.lang.visitor.benchmark</module>
+		<module>selfadaptable-minijava.lang.interpreter</module>
+		<module>selfadaptable-minijava.lang.interpreter.execute</module>
 		
 		<!-- 
-		<module>selfadaptable-minijava.lang.interpreter</module>
+		<module>selfadaptable-minijava.lang.visitor</module>
 		<module>selfadaptable-minijava.lang.revisitor</module>
 		<module>selfadaptable-minijava.lang.switch</module>
-		<module>selfadaptable-minijava.lang.interpreter.benchmark</module>
+		<module>selfadaptable-minijava.lang.visitor.benchmark</module>
 		<module>selfadaptable-minijava.lang.revisitor.benchmark</module>
 		<module>selfadaptable-minijava.lang.switch.benchmark</module>
 		<module>selfadaptable-minijava.lang.interpreter.truffle</module>

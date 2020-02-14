@@ -9,14 +9,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>selfadaptable-minijava.lang.interpreter</groupId>
 	<artifactId>selfadaptable-minijava.lang.interpreter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<sourceDirectory>interpreter-comp</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.7</version>
+				<version>1.9</version>
 				<configuration>
 					<complianceLevel>1.8</complianceLevel>
 					<source>1.8</source>
@@ -29,7 +28,6 @@
 				<executions>
 					<execution>
 						<goals>
-							<!-- use this goal to weave all your main classes -->
 							<goal>compile</goal>
 						</goals>
 					</execution>
@@ -64,12 +62,12 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.8.9</version>
+			<version>1.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>1.8.9</version>
+			<version>1.9.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf.ecoretools.ale.compiler</groupId>

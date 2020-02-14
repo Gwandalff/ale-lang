@@ -835,6 +835,6 @@ public class MiniJavaFactoryImpl extends EFactoryImpl implements MiniJavaFactory
 	private static void instaciateDynamicModules() {
 		modules.add(new DynamicApproximateModule());
 		modules.add(new DynamicMemoizationModule());
-		modules.add(new DynamicPEModule());
+		//modules.add(new DynamicPEModule());
 	}
 }

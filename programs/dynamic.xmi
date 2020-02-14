@@ -32,7 +32,7 @@
           </assignee>
           <value
               xsi:type="miniJava:IntConstant"
-              value="6"/>
+              value="80"/>
         </statements>
         <statements
             xsi:type="miniJava:PrintStatement">
@@ -46,6 +46,12 @@
                 xsi:type="miniJava:SymbolRef"
                 symbol="//@classes.0/@members.0/@body/@statements.0/@assignee"/>
           </expression>
+        </statements>
+	<statements
+            xsi:type="miniJava:PrintStatement">
+          <expression
+              xsi:type="miniJava:StringConstant"
+                  value=":statistique"/>
         </statements>
       </body>
     </members>
