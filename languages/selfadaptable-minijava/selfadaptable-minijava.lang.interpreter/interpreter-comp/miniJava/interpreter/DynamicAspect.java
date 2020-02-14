@@ -26,14 +26,14 @@ public class DynamicAspect {
     public Value aroundExpression(ProceedingJoinPoint pjp) throws Throwable {
 		IDynamicSubject node = (IDynamicSubject) pjp.getTarget();
 		
-		boolean doTheMethod = node.notifyDynamicModulesBefore();
+		boolean doTheMethod = node.notifyDynamicModulesBefore(pjp.getArgs());
 		
 		Value out = null;
 		if(doTheMethod){
 			out = (Value) pjp.proceed();
 		}
 		
-		out = node.notifyDynamicModulesAfter(((Value) out));
+		out = node.notifyDynamicModulesAfter(pjp.getArgs(), ((Value) out));
 		return out;
     }
 	
@@ -47,12 +47,12 @@ public class DynamicAspect {
     public void aroundStatement(ProceedingJoinPoint pjp) throws Throwable {
 		IDynamicSubject node = (IDynamicSubject) pjp.getTarget();
 		
-		boolean doTheMethod = node.notifyDynamicModulesBefore();
+		boolean doTheMethod = node.notifyDynamicModulesBefore(pjp.getArgs());
 		
 		if(doTheMethod){
 			pjp.proceed();
 		}
 		
-		node.notifyDynamicModulesAfter(((Value) null));
+		node.notifyDynamicModulesAfter(pjp.getArgs(), ((Value) null));
     }
 }

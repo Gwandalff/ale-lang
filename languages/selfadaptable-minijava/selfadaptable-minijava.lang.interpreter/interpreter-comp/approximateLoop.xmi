@@ -3,7 +3,7 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:miniJava="platform:/resource/selfadaptable-minijava.lang.visitor/visitor-comp/miniJava.ecore">
+    xmlns:miniJava="platform:/resource/selfadaptable-minijava.lang.interpreter/interpreter-comp/miniJava.ecore">
   <classes xsi:type="miniJava:Clazz"
       name="Approximate">
     <members

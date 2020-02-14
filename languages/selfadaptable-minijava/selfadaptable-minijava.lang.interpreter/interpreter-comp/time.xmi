@@ -3,7 +3,7 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:miniJava="platform:/resource/selfadaptable-minijava.lang.interpreter/interpreter-comp/miniJava.ecore">
+    xmlns:miniJava="http://miniJava.miniJava.miniJava/">
   <classes xsi:type="miniJava:Clazz"
       name="Fib">
     <members
@@ -37,6 +37,12 @@
         <statements
             xsi:type="miniJava:PrintStatement">
           <expression
+              xsi:type="miniJava:StringConstant"
+              value="-> tic"/>
+        </statements>
+        <statements
+            xsi:type="miniJava:PrintStatement">
+          <expression
               xsi:type="miniJava:MethodCall"
               method="//@classes.0/@members.1">
             <receiver
@@ -46,6 +52,24 @@
                 xsi:type="miniJava:SymbolRef"
                 symbol="//@classes.0/@members.0/@body/@statements.0/@assignee"/>
           </expression>
+        </statements>
+        <statements
+            xsi:type="miniJava:PrintStatement">
+          <expression
+              xsi:type="miniJava:StringConstant"
+              value="-> toc"/>
+        </statements>
+        <statements
+            xsi:type="miniJava:PrintStatement">
+          <expression
+              xsi:type="miniJava:StringConstant"
+              value="-> millis"/>
+        </statements>
+        <statements
+            xsi:type="miniJava:PrintStatement">
+          <expression
+              xsi:type="miniJava:StringConstant"
+              value="-> seconds"/>
         </statements>
       </body>
     </members>

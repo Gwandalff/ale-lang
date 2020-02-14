@@ -1,5 +1,6 @@
 package miniJava.interpreter;
 
+import miniJava.interpreter.miniJava.State;
 import miniJava.interpreter.miniJava.Value;
 
 /**
@@ -28,7 +29,7 @@ public interface IDynamicSubject {
 	 * the semantic of the node is skipped.
 	 * @return false if one or more of the AROUND modules return false, else true
 	 */
-	boolean notifyDynamicModulesBefore();
+	boolean notifyDynamicModulesBefore(Object[] args);
 	
 	/**
 	 * notifyDynamicModulesAfter : call the {@link IDynamicModule#updateAfter(IDynamicSubject, Value)} 
@@ -37,5 +38,5 @@ public interface IDynamicSubject {
 	 * @param result : the actual result of the computation(can be null if no result or semantics skip)
 	 * @return The last proposed result (from computation if the result wasn't override)
 	 */
-	Value notifyDynamicModulesAfter(Value result);
+	Value notifyDynamicModulesAfter(Object[] args, Value result);
 }

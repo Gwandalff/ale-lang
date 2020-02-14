@@ -25,7 +25,7 @@ public class DynamicApproximateModule implements IDynamicModule {
 	private List<Statement> arrayAssign;
 
 	@Override
-	public boolean updateBefore(IDynamicSubject self) {
+	public boolean updateBefore(IDynamicSubject self, Object[] args) {
 		if( complexVerification(self) ) {
 			performOptimization(self);
 		}
@@ -34,7 +34,7 @@ public class DynamicApproximateModule implements IDynamicModule {
 	}
 	
 	@Override
-	public boolean updateAfter(IDynamicSubject self, Value returned) {
+	public boolean updateAfter(IDynamicSubject self, Object[] args, Value returned) {
 		return false;
 	}
 	

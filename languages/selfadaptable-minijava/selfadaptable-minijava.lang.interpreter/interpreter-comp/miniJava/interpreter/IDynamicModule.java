@@ -18,7 +18,7 @@ public interface IDynamicModule {
 	 * @return true if the node need to be evaluated false to shortcut it 
 	 * (shortcut only if {@link IDynamicModule#callStrategy() is AROUND})
 	 */
-	boolean updateBefore(IDynamicSubject self);
+	boolean updateBefore(IDynamicSubject self, Object[] args);
 	
 	/**
 	 * updateAfter : function called after execution of the node semantics
@@ -27,7 +27,7 @@ public interface IDynamicModule {
 	 * @return true if you need to bypass the actual result 
 	 * ({@link IDynamicModule#byPassResult()} will be called if true)
 	 */
-	boolean updateAfter(IDynamicSubject self, Value returned);
+	boolean updateAfter(IDynamicSubject self, Object[] args, Value returned);
 	
 	/**
 	 * byPassResult : function called when you bypass the result with 

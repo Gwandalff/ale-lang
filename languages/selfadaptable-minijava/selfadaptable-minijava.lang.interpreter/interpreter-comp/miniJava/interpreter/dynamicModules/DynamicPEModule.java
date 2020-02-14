@@ -23,7 +23,7 @@ public class DynamicPEModule implements IDynamicModule {
 	private Map<String,Integer> computeTable = new HashMap();
 
 	@Override
-	public boolean updateBefore(IDynamicSubject self) {
+	public boolean updateBefore(IDynamicSubject self, Object[] args) {
 		if(self instanceof PrintStatement) return false;
 		if(self instanceof Block) {
 			EObject container = ((Block) self).eContainer();
@@ -50,7 +50,7 @@ public class DynamicPEModule implements IDynamicModule {
 	}
 
 	@Override
-	public boolean updateAfter(IDynamicSubject self, Value returned) {		
+	public boolean updateAfter(IDynamicSubject self, Object[] args, Value returned) {		
 		try {
 			Expression exp = ((PrintStatement) self).getExpression();
 			String print = ((StringConstant) exp).getValue();

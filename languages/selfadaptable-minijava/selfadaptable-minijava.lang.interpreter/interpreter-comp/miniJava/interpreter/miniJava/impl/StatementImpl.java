@@ -40,13 +40,13 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
 	}
 
 	@Override
-	public boolean notifyDynamicModulesBefore() {
+	public boolean notifyDynamicModulesBefore(Object[] args) {
 		boolean out = true;
 		for (IDynamicModule dm : modules) {
 			if(dm.callStrategy() == Strategy.AROUND) {
-				out = out && dm.updateBefore(this);
+				out = out && dm.updateBefore(this, args);
 			} else {
-				dm.updateBefore(this);
+				dm.updateBefore(this, args);
 			}
 				
 		}
@@ -54,10 +54,10 @@ public class StatementImpl extends MinimalEObjectImpl.Container implements State
 	}
 
 	@Override
-	public Value notifyDynamicModulesAfter(Value result) {
+	public Value notifyDynamicModulesAfter(Object[] args, Value result) {
 		Value out = result;
 		for (IDynamicModule dm : modules) {
-			if(dm.updateAfter(this, result)) {
+			if(dm.updateAfter(this, args, result)) {
 				out = dm.byPassResult();
 			}				
 		}
