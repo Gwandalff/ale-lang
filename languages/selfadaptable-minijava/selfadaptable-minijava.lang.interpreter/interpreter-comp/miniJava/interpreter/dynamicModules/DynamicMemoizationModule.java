@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -11,40 +12,37 @@ import org.eclipse.xtext.EcoreUtil2;
 
 import miniJava.interpreter.IDynamicModule;
 import miniJava.interpreter.IDynamicSubject;
-import miniJava.interpreter.miniJava.Expression;
-import miniJava.interpreter.miniJava.IntConstant;
+import miniJava.interpreter.miniJava.Context;
 import miniJava.interpreter.miniJava.Method;
 import miniJava.interpreter.miniJava.MethodCall;
 import miniJava.interpreter.miniJava.MiniJavaPackage;
+import miniJava.interpreter.miniJava.Parameter;
 import miniJava.interpreter.miniJava.State;
+import miniJava.interpreter.miniJava.Symbol;
+import miniJava.interpreter.miniJava.SymbolBinding;
 import miniJava.interpreter.miniJava.Value;
 
 public class DynamicMemoizationModule implements IDynamicModule {
 	
-	private Map<Method,Map<EList<Expression>,Value>> memoizeTable = new HashMap();
+	private Map<Method,Map<EList<Value>,Value>> memoizeTable = new HashMap();
 	
 	private Deque<Boolean> inMemory = new ArrayDeque<>();
+	private Deque<EList<Value>> effectiveArguments = new ArrayDeque<>();
 	private Value memoizedValue = null;
 
 	@Override
 	public boolean updateBefore(IDynamicSubject self, Object[] args) {
 		MethodCall call = ((MethodCall) self);
-		Map<EList<Expression>,Value> table = memoizeTable.get(call.getMethod());
-		EList<Expression> methArgs = call.getArgs();
-		EList<Expression> calculatedArgs = new BasicEList<Expression>();
-		for (int i = 0; i < methArgs.size(); i++) {
-			Value v = methArgs.get(i).evaluateExpression((State) args[0]);
-			
-		}
-		System.out.println("Call fib(" + call.getArgs().get(0) + ")");
+		effectiveArguments.addLast(getEffectiveArguments((State) args[1], call.getMethod()));
+		
+		Map<EList<Value>,Value> table = memoizeTable.get(call.getMethod());		
 		if(table == null) {
-			memoizeTable.put(call.getMethod(), new HashMap<EList<Expression>,Value>());
+			memoizeTable.put(call.getMethod(), new HashMap<EList<Value>,Value>());
 			inMemory.addLast(false);
 		} else {
-			Value val = table.get(call.getArgs());
+			Value val = getOutputFromParams(effectiveArguments.getLast(), table);
 			inMemory.addLast(val != null);
 		}
-		System.out.println("Was " + (inMemory.getLast()?"":"not ") + "in memory");
 		
 		return !inMemory.getLast();
 	}
@@ -52,27 +50,53 @@ public class DynamicMemoizationModule implements IDynamicModule {
 	@Override
 	public boolean updateAfter(IDynamicSubject self, Object[] args, Value returned) {
 		MethodCall call = ((MethodCall) self);
-		Map<EList<Expression>,Value> table = memoizeTable.get(call.getMethod());
-		System.out.println("DEBUG MAP :");
-		for (EList<Expression> arg : table.keySet()) {
-			System.out.println(arg + " -> " + table.get(arg).customToString());
-		}
+		Map<EList<Value>,Value> table = memoizeTable.get(call.getMethod());
 		if(!inMemory.getLast()) {
-			System.out.println("Save the result for fib(" + call.getArgs().get(0) + ")");
-			System.out.println(returned.customToString() + " was saved");
-			table.put(call.getArgs(), EcoreUtil2.copy(returned));
+			Value trueReturned = ((State) args[1]).findCurrentFrame().getReturnValue();
+			table.put(effectiveArguments.removeLast(), EcoreUtil2.copy(trueReturned));
 			memoizeTable.put(call.getMethod(), table);
 		} else {
-			memoizedValue = table.get(call.getArgs());
-			System.out.println("Get from memory : " + memoizedValue.customToString());
+			memoizedValue = getOutputFromParams(effectiveArguments.removeLast(), table);
+			((State) args[1]).findCurrentFrame().setReturnValue(memoizedValue);
 		}
-		boolean override = inMemory.removeLast();
-		return override;
+		inMemory.removeLast();
+		return false;
+	}
+	
+	private EList<Value> getEffectiveArguments(State state, Method method){
+		Context ctx = state.findCurrentContext();
+		EList<SymbolBinding> bindings = ctx.getBindings();
+		EList<Value> effectiveParameters = new BasicEList();
+		for (Parameter param : method.getParams()) {
+			for (int i = 0; i < bindings.size(); i++) {
+				Symbol s = bindings.get(i).getSymbol();
+				if(s instanceof Parameter && ((Parameter) s).compare(param)) {
+					effectiveParameters.add(bindings.get(i).getValue());
+				}
+			}
+		}
+		return effectiveParameters;
+	}
+	
+	private Value getOutputFromParams(EList<Value> args, Map<EList<Value>,Value> table){
+		Set<EList<Value>> keys = table.keySet();
+		EList<Value> theKey = null;
+		for (EList<Value> key : keys) {
+			boolean valid = true;
+			for (int i = 0; i < key.size(); i++) {
+				valid = valid & key.get(i).equals(args.get(i));
+				if(!valid) break;
+			}
+			if(valid) {
+				theKey = key;
+				break;
+			}
+		}
+		return theKey==null?null:EcoreUtil2.copy(table.get(theKey));
 	}
 
 	@Override
 	public Value byPassResult() {
-		System.out.println("The actual result was : " + memoizedValue);
 		return memoizedValue;
 	}
 

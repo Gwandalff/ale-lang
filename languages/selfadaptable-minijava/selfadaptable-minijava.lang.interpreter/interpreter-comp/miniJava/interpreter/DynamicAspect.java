@@ -21,7 +21,7 @@ public class DynamicAspect {
 	 * @param pjp : The joinpoint giving access to the context of the code injection(i.e. AST node executed)
 	 * @return The value resulting of the computation or an override of this value
 	 * @throws Throwable
-	 */
+	 
 	@Around("execution(Value miniJava.interpreter.miniJava.impl.*.evaluateExpression(..))")
     public Value aroundExpression(ProceedingJoinPoint pjp) throws Throwable {
 		IDynamicSubject node = (IDynamicSubject) pjp.getTarget();
@@ -35,7 +35,7 @@ public class DynamicAspect {
 		
 		out = node.notifyDynamicModulesAfter(pjp.getArgs(), ((Value) out));
 		return out;
-    }
+    }*/
 	
 	/**
 	 * aroundStatement : add calls to dynamic modules before and after the semantics execution.
@@ -45,6 +45,19 @@ public class DynamicAspect {
 	 */
 	@Around("execution(void miniJava.interpreter.miniJava.impl.*.evaluateStatement(..))")
     public void aroundStatement(ProceedingJoinPoint pjp) throws Throwable {
+		IDynamicSubject node = (IDynamicSubject) pjp.getTarget();
+		
+		boolean doTheMethod = node.notifyDynamicModulesBefore(pjp.getArgs());
+		
+		if(doTheMethod){
+			pjp.proceed();
+		}
+		
+		node.notifyDynamicModulesAfter(pjp.getArgs(), ((Value) null));
+    }
+	
+	@Around("execution(void miniJava.interpreter.miniJava.impl.MethodCallImpl.call(..))")
+    public void aroundCall(ProceedingJoinPoint pjp) throws Throwable {
 		IDynamicSubject node = (IDynamicSubject) pjp.getTarget();
 		
 		boolean doTheMethod = node.notifyDynamicModulesBefore(pjp.getArgs());

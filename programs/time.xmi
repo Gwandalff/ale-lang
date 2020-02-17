@@ -32,7 +32,7 @@
           </assignee>
           <value
               xsi:type="miniJava:IntConstant"
-              value="60"/>
+              value="30"/>
         </statements>
         <statements
             xsi:type="miniJava:PrintStatement">
@@ -70,12 +70,6 @@
           <expression
               xsi:type="miniJava:StringConstant"
               value="-> seconds"/>
-        </statements>
-	<statements
-            xsi:type="miniJava:PrintStatement">
-          <expression
-              xsi:type="miniJava:StringConstant"
-              value=":statistique"/>
         </statements>
       </body>
     </members>

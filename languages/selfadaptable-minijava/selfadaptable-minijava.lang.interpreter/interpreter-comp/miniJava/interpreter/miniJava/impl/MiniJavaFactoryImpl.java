@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import miniJava.interpreter.IDynamicModule;
 import miniJava.interpreter.dynamicModules.DynamicApproximateModule;
+import miniJava.interpreter.dynamicModules.DynamicMemoizationModule;
 import miniJava.interpreter.dynamicModules.DynamicPEModule;
 import miniJava.interpreter.dynamicModules.DynamicSemanticInjectionModule;
 import miniJava.interpreter.miniJava.AccessLevel;
